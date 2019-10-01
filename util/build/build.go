@@ -19,8 +19,8 @@ type Details struct {
 
 var version, date string
 
-const name = "Shuttle Location Handler"
-const discription = "This service is used to track shuttle driver locations"
+const name = "Put binary name here"
+const discription = "Put description here"
 
 // String returns build details as a string with formatting
 // suitable for console output.
