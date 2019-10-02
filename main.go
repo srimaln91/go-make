@@ -17,5 +17,5 @@ func main() {
 		}
 	}
 
-	fmt.Println("test sample test")
+	fmt.Println("test")
 }
