@@ -2,7 +2,23 @@
 
 This is a project which is intended to demonstrate how to use Makefiles to build go projects. Build version tag will be detected automatically.
 
-## Make Commands
+## Install GNU Make
+
+### Debian based systems
+
+```bash
+sudo apt install make
+```
+
+### Red Hat based systems
+
+```bash
+yum install make
+```
+
+## Make Commands configured in this project
+
+This project contains a sample [Makefile](./Makefile) with some build tasks.
 
 ```bash
 # List configured make tasks
