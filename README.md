@@ -1,6 +1,6 @@
 # Sample project explaining how to use Makefiles to build Golang projects
 
-This is a project which is intended to demonstrate how to use Makefiles to build go projects. Build version tag will be detected automatically.
+This is a project which is intended to demonstrate how to use Makefiles to build go projects. Build version tag will be detected automatically and updated in the compilation time.
 
 ## Install GNU Make
 
