@@ -14,15 +14,16 @@ BINARY_NAME=$(shell basename $(WORKING_DIRECTORY))
 
 OS := $(if $(GOOS),$(GOOS),$(shell go env GOOS))
 ARCH := $(if $(GOARCH),$(GOARCH),$(shell go env GOARCH))
-BINARY_LINUX=$(BINARY_NAME)-$(OS)-$(ARCH)
+BINARY=$(BINARY_NAME)-$(OS)-$(ARCH)
 
 # This version-strategy uses git tags to set the version string
 VERSION := $(shell git describe --tags --always --dirty)
-#
+COMMIT := $(shell git rev-list -1 HEAD)
+
 # This version-strategy uses a manual value to set the version string
 #VERSION := 1.2.3
 
-BIN_FILE=$(BUILD_DIR)/$(VERSION)/$(BINARY_LINUX)
+BIN_FILE=$(BUILD_DIR)/$(VERSION)/$(BINARY)
 
 .PHONY: all
 all: test build ## Test and build
@@ -31,11 +32,19 @@ all: test build ## Test and build
 build: ## Build the binary
 	echo $(BINARY_NAME)
 	rm -f $(BIN_FILE)
-	CGO_ENABLED=1 GOOS=linux GOARCH=amd64 $(GOBUILD) -ldflags "-X github.com/srimaln91/go-build/util/build.version=$(VERSION) -X github.com/srimaln91/go-build/util/build.date=$(DATE)" -o $(BIN_FILE) -v
+
+	CGO_ENABLED=1 GOOS=$(OS) GOARCH=$(ARCH) $(GOBUILD) -ldflags "-X github.com/srimaln91/go-build.version=$(VERSION) \
+	-X github.com/srimaln91/go-build.date=$(DATE) \
+	-X github.com/srimaln91/go-build.gitCommit=$(COMMIT) \
+	-X github.com/srimaln91/go-build.osArch=$(OS)/$(ARCH)" \
+	-o $(BIN_FILE) -v
 
 .PHONY: test
 test: ## Run unit tests
-	$(GOTEST) -v ./...
+	$(GOTEST) -v ./... -ldflags "-X github.com/srimaln91/go-build.version=$(VERSION) \
+	-X github.com/srimaln91/go-build.date=$(DATE) \
+	-X github.com/srimaln91/go-build.gitCommit=$(COMMIT) \
+	-X github.com/srimaln91/go-build.osArch=$(OS)/$(ARCH)"
 
 .PHONY: clean
 clean: ## Clean the build directory
