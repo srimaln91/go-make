@@ -11,6 +11,7 @@ addons:
     - make
 
 script: 
+  - go mod download
   - make test
 
 after_success:
