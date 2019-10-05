@@ -41,7 +41,7 @@ build: ## Build the binary
 
 .PHONY: test
 test: ## Run unit tests
-	$(GOTEST) -v ./... -ldflags "-X github.com/srimaln91/go-make.version=$(VERSION) \
+	$(GOTEST) -covermode=atomic -coverprofile=coverage.txt -v ./... -ldflags "-X github.com/srimaln91/go-make.version=$(VERSION) \
 	-X github.com/srimaln91/go-make.date=$(DATE) \
 	-X github.com/srimaln91/go-make.gitCommit=$(COMMIT) \
 	-X github.com/srimaln91/go-make.osArch=$(OS)/$(ARCH)"

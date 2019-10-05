@@ -1,0 +1,21 @@
+language: go
+
+go:
+  - 1.12
+
+dist: xenial
+
+addons:
+  apt:
+    packages:
+    - make
+
+script: 
+  - make test
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+notifications:
+  email:
+    - srimaln91@gmail.com

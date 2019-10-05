@@ -2,7 +2,7 @@
 // The details are set using ldflags.
 //
 // The ldflags can be set manually for testing locally:
-// `go build -ldflags "-X github.com/srimaln91/go-build/util/build.version=$(git describe --tags) -X github.com/srimaln91/go-build/util/build.date=$(date -u +%Y-%m-%d-%H:%M:%S-%Z)"`
+// `go build -ldflags "-X github.com/srimaln91/go-make.version=$(git describe --tags) -X github.com/srimaln91/go-make.date=$(date -u +%Y-%m-%d-%H:%M:%S-%Z)"`
 package build
 
 import (
