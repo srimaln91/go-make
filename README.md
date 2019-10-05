@@ -2,6 +2,9 @@
 
 This is a project which is intended to demonstrate how to use Makefiles to build go projects. Build version tag will be detected automatically and updated in the compilation time.
 
+[![Build Status](https://travis-ci.org/srimaln91/go-make.svg?branch=master)](https://travis-ci.org/srimaln91/go-make)
+[![codecov](https://codecov.io/gh/srimaln91/go-make/branch/master/graph/badge.svg)](https://codecov.io/gh/srimaln91/go-make)
+[![Go Report Card](https://goreportcard.com/badge/github.com/srimaln91/go-make)](https://goreportcard.com/report/github.com/srimaln91/go-make)
 [![GoDoc](https://godoc.org/github.com/srimaln91/go-make?status.svg)](https://godoc.org/github.com/srimaln91/go-make)
 
 ## Install GNU Make
