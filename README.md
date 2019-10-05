@@ -1,8 +1,8 @@
-# Sample project explaining how to use Makefiles to build Golang projects
+# Use GNU Make to build Golang projects with embedded build details
 
 This is a project which is intended to demonstrate how to use Makefiles to build go projects. Build version tag will be detected automatically and updated in the compilation time.
 
-[![GoDoc](https://godoc.org/github.com/srimaln91/go-build?status.svg)](https://godoc.org/github.com/srimaln91/go-build)
+[![GoDoc](https://godoc.org/github.com/srimaln91/go-make?status.svg)](https://godoc.org/github.com/srimaln91/go-make)
 
 ## Install GNU Make
 

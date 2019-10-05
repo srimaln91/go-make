@@ -33,18 +33,18 @@ build: ## Build the binary
 	echo $(BINARY_NAME)
 	rm -f $(BIN_FILE)
 
-	CGO_ENABLED=1 GOOS=$(OS) GOARCH=$(ARCH) $(GOBUILD) -ldflags "-X github.com/srimaln91/go-build.version=$(VERSION) \
-	-X github.com/srimaln91/go-build.date=$(DATE) \
-	-X github.com/srimaln91/go-build.gitCommit=$(COMMIT) \
-	-X github.com/srimaln91/go-build.osArch=$(OS)/$(ARCH)" \
+	CGO_ENABLED=1 GOOS=$(OS) GOARCH=$(ARCH) $(GOBUILD) -ldflags "-X github.com/srimaln91/go-make.version=$(VERSION) \
+	-X github.com/srimaln91/go-make.date=$(DATE) \
+	-X github.com/srimaln91/go-make.gitCommit=$(COMMIT) \
+	-X github.com/srimaln91/go-make.osArch=$(OS)/$(ARCH)" \
 	-o $(BIN_FILE) -v
 
 .PHONY: test
 test: ## Run unit tests
-	$(GOTEST) -v ./... -ldflags "-X github.com/srimaln91/go-build.version=$(VERSION) \
-	-X github.com/srimaln91/go-build.date=$(DATE) \
-	-X github.com/srimaln91/go-build.gitCommit=$(COMMIT) \
-	-X github.com/srimaln91/go-build.osArch=$(OS)/$(ARCH)"
+	$(GOTEST) -v ./... -ldflags "-X github.com/srimaln91/go-make.version=$(VERSION) \
+	-X github.com/srimaln91/go-make.date=$(DATE) \
+	-X github.com/srimaln91/go-make.gitCommit=$(COMMIT) \
+	-X github.com/srimaln91/go-make.osArch=$(OS)/$(ARCH)"
 
 .PHONY: clean
 clean: ## Clean the build directory

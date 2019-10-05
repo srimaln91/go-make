@@ -1,4 +1,4 @@
-module github.com/srimaln91/go-build
+module github.com/srimaln91/go-make
 
 go 1.12
 
