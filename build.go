@@ -12,7 +12,7 @@ import (
 	"os"
 	"runtime"
 
-	"github.com/kataras/tablewriter"
+	"github.com/olekukonko/tablewriter"
 )
 
 // Details represents known data for a given build
@@ -26,15 +26,17 @@ type Details struct {
 
 var version, date, gitCommit, osArch string
 
-// String returns build details as a string with formatting
-// suitable for console output.
-// Ex:
-// Build Details:
-//   Version: v0.5.0
-//   Go Version: go1.12.9
-//   Git Commit: bc2e7ce8edc4aa85cc258890e0e4381630cbf5f8
-//   OS/Arch: linux/amd64
-//   Built: 2019-10-05-12:17:29-UTC
+/*
+String returns build details as a string with formatting
+suitable for console output.
+Ex:
+Build Details:
+  Version: v0.5.0
+  Go Version: go1.12.9
+  Git Commit: bc2e7ce8edc4aa85cc258890e0e4381630cbf5f8
+  OS/Arch: linux/amd64
+  Built: 2019-10-05-12:17:29-UTC
+*/
 func String() string {
 	return fmt.Sprintf(`
 Build Details:
@@ -52,14 +54,17 @@ Build Details:
 	)
 }
 
-// Table returns build details as a table
-// Suitable for console output
-// Ex:
-// +----------------+------------+------------------------------------------+-------------+-------------------------+
-// | BINARY VERSION | GO VERSION |                GIT COMMIT                |   OS/ARCH   |          BUILT          |
-// +----------------+------------+------------------------------------------+-------------+-------------------------+
-// | v0.5.0-dirty   | go1.12.9   | bc2e7ce8edc4aa85cc258890e0e4381630cbf5f8 | linux/amd64 | 2019-10-05-12:17:29-UTC |
-// +----------------+------------+------------------------------------------+-------------+-------------------------+
+/*
+Table returns build details as a table
+Suitable for console output
+Ex:
+
++----------------+------------+------------------------------------------+-------------+-------------------------+
+| BINARY VERSION | GO VERSION |                GIT COMMIT                |   OS/ARCH   |          BUILT          |
++----------------+------------+------------------------------------------+-------------+-------------------------+
+| v0.5.0-dirty   | go1.12.9   | bc2e7ce8edc4aa85cc258890e0e4381630cbf5f8 | linux/amd64 | 2019-10-05-12:17:29-UTC |
++----------------+------------+------------------------------------------+-------------+-------------------------+
+*/
 func Table() string {
 	tableBuffer := new(bytes.Buffer)
 
