@@ -69,6 +69,15 @@ make clean
 ./build/vx.x.x/go-build-linux-amd64 --version
 ```
 
+```bash
+# Output
++----------------+------------+------------------------------------------+-------------+-------------------------+
+| BINARY VERSION | GO VERSION |                GIT COMMIT                |   OS/ARCH   |          BUILT          |
++----------------+------------+------------------------------------------+-------------+-------------------------+
+| v0.6.0         | go1.12.9   | c8bf7b40e9d842769b580b704931904197e0b713 | linux/amd64 | 2019-10-05-14:01:35-UTC |
++----------------+------------+------------------------------------------+-------------+-------------------------+
+```
+
 ## Version tags
 
 - If the source code is exactly on a build tag, the binary will be created with a clean tag. Like `vx.x.x`
