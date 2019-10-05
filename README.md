@@ -2,6 +2,8 @@
 
 This is a project which is intended to demonstrate how to use Makefiles to build go projects. Build version tag will be detected automatically and updated in the compilation time.
 
+[![GoDoc](https://godoc.org/github.com/srimaln91/go-build?status.svg)](https://godoc.org/github.com/srimaln91/go-build)
+
 ## Install GNU Make
 
 ### Debian based systems
@@ -16,6 +18,29 @@ sudo apt install make
 yum install make
 ```
 
+## How to use
+
+01. Import [Makefile](./Makefile) into your project root
+02. Update main function as follows.
+
+```go
+package main
+
+import (
+    "github.com/srimaln91/go-build"
+)
+
+func main() {
+
+    // Print binary details and terminate the program when --version flag provided.
+    build.CheckVersion()
+
+    // Starting the bootstrpping process
+    // bootstrap.Start()
+}
+
+```
+
 ## Make Commands configured in this project
 
 This project contains a sample [Makefile](./Makefile) with some build tasks.
@@ -23,6 +48,9 @@ This project contains a sample [Makefile](./Makefile) with some build tasks.
 ```bash
 # List configured make tasks
 make help
+
+# Run unit tests
+make test
 
 # Build project
 make build

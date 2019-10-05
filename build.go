@@ -7,6 +7,7 @@ package build
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"os"
 	"runtime"
@@ -23,16 +24,17 @@ type Details struct {
 	Date      string `json:"date,omitempty"`
 }
 
-var goVersion = runtime.Version()
 var version, date, gitCommit, osArch string
 
 // String returns build details as a string with formatting
 // suitable for console output.
-//
-// i.e.
+// Ex:
 // Build Details:
-//         Version:        v0.1.0-155-g1a20f8b
-//         Date:           2018-11-05-14:33:14-UTC
+//   Version: v0.5.0
+//   Go Version: go1.12.9
+//   Git Commit: bc2e7ce8edc4aa85cc258890e0e4381630cbf5f8
+//   OS/Arch: linux/amd64
+//   Built: 2019-10-05-12:17:29-UTC
 func String() string {
 	return fmt.Sprintf(`
 Build Details:
@@ -40,42 +42,61 @@ Build Details:
   Go Version: %s
   Git Commit: %s
   OS/Arch: %s
-  Build Date: %s
+  Built: %s
 `,
 		version,
-		goVersion,
+		runtime.Version(),
 		gitCommit,
 		osArch,
 		date,
 	)
 }
 
-// Table returns build details as a styled table
+// Table returns build details as a table
+// Suitable for console output
+// Ex:
+// +----------------+------------+------------------------------------------+-------------+-------------------------+
+// | BINARY VERSION | GO VERSION |                GIT COMMIT                |   OS/ARCH   |          BUILT          |
+// +----------------+------------+------------------------------------------+-------------+-------------------------+
+// | v0.5.0-dirty   | go1.12.9   | bc2e7ce8edc4aa85cc258890e0e4381630cbf5f8 | linux/amd64 | 2019-10-05-12:17:29-UTC |
+// +----------------+------------+------------------------------------------+-------------+-------------------------+
 func Table() string {
 	tableBuffer := new(bytes.Buffer)
 
-	data := []string{version, goVersion, gitCommit, osArch, date}
+	data := []string{
+		version,
+		runtime.Version(),
+		gitCommit,
+		osArch,
+		date,
+	}
+
 	table := tablewriter.NewWriter(tableBuffer)
 
-	table.SetHeader([]string{"Binary Version", "Go Version", "Git Commit", "OS/Arch", "Build Date"})
+	table.SetHeader([]string{"Binary Version", "Go Version", "Git Commit", "OS/Arch", "Built"})
 	table.Append(data)
 	table.Render()
 
 	return tableBuffer.String()
 }
 
+// JSON returns build details as a JSON string
+func JSON() ([]byte, error) {
+	return json.Marshal(Data())
+}
+
 // Data returns build details as a struct
 func Data() Details {
 	return Details{
 		Version:   version,
-		GoVersion: goVersion,
+		GoVersion: runtime.Version(),
 		GitCommit: gitCommit,
 		OSArch:    osArch,
 		Date:      date,
 	}
 }
 
-// CheckVersion checks --version os argument and prints the binary version
+// CheckVersion checks --version os argument and prints the binary build details in the console
 func CheckVersion() {
 
 	// Check OS arguments

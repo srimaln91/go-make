@@ -23,3 +23,16 @@ func TestString(t *testing.T) {
 
 	fmt.Println(resultString)
 }
+
+func TestJSON(t *testing.T) {
+	resultJSON, err := JSON()
+	if err != nil {
+		t.Error("Error in JSON()", err)
+	}
+
+	if string(resultJSON) == "" {
+		t.Error("Error in JSON()", "Empty string received")
+	}
+
+	fmt.Println(string(resultJSON))
+}
