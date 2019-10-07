@@ -30,13 +30,13 @@ yum install make
 package main
 
 import (
-    "github.com/srimaln91/go-build"
+    buildMeta "github.com/srimaln91/go-make"
 )
 
 func main() {
 
     // Print binary details and terminate the program when --version flag provided.
-    build.CheckVersion()
+    buildMeta.CheckVersion()
 
     // Starting the bootstrpping process
     // bootstrap.Start()
