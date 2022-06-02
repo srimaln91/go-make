@@ -23,3 +23,12 @@ jobs:
 
     - name: run tests
       run: make test
+      
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v2
+      with:
+        fail_ci_if_error: true
+        files: ./coverage.txt
+        flags: unittests
+        name: codecov-umbrella
+        verbose: true
