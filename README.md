@@ -38,6 +38,10 @@ func main() {
     // Print binary details and terminate the program when --version flag provided.
     buildMeta.CheckVersion()
 
+    // Optionally we can pass a printer that we can use to control the output
+    // It acceptes any type which implements the `Printer` interface
+    buildMeta.CheckVersion(buildMeta.PRINTER_SINGLE_LINE)
+
     // Starting the bootstrpping process
     // bootstrap.Start()
 }

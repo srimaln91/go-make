@@ -24,15 +24,17 @@ type Details struct {
 	Date      string `json:"date,omitempty"`
 }
 
-var version, date, gitCommit, osArch string
-
 type Printer interface {
 	Print(details Details) error
 }
 
-var PRINTER_TABLE = TablePrinter{Writer: os.Stdout}
-var PRINTER_STRING = StringPrinter{Writer: os.Stdout}
-var PRINTER_SINGLE_LINE = SingleLinePrinter{Writer: os.Stdout}
+var version, date, gitCommit, osArch string
+
+var (
+	PRINTER_TABLE       = TablePrinter{Writer: os.Stdout}
+	PRINTER_STRING      = StringPrinter{Writer: os.Stdout}
+	PRINTER_SINGLE_LINE = SingleLinePrinter{Writer: os.Stdout}
+)
 
 /*
 String returns build details as a string with formatting
