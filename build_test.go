@@ -51,7 +51,7 @@ func TestSingleLinePrinter(t *testing.T) {
 	}
 
 	writer := bytes.NewBuffer(nil)
-	p := SingleLinePrinter{BasePrinter: BasePrinter{Writer: writer}}
+	p := SingleLinePrinter{Writer: writer}
 	p.Print(d)
 
 	b, err := ioutil.ReadAll(writer)
@@ -73,7 +73,7 @@ func TestTablePrinter(t *testing.T) {
 	}
 
 	writer := bytes.NewBuffer(nil)
-	p := TablePrinter{BasePrinter: BasePrinter{Writer: writer}}
+	p := TablePrinter{Writer: writer}
 	p.Print(d)
 
 	b, err := ioutil.ReadAll(writer)
@@ -95,7 +95,7 @@ func TestStringPrinter(t *testing.T) {
 	}
 
 	writer := bytes.NewBuffer(nil)
-	p := StringPrinter{BasePrinter: BasePrinter{Writer: writer}}
+	p := StringPrinter{Writer: writer}
 	p.Print(d)
 
 	b, err := ioutil.ReadAll(writer)

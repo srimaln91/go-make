@@ -9,7 +9,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io"
 	"os"
 	"runtime"
 
@@ -31,36 +30,9 @@ type Printer interface {
 	Print(details Details) error
 }
 
-type BasePrinter struct {
-	Writer io.Writer
-}
-
-type TablePrinter struct {
-	BasePrinter
-}
-
-func (p TablePrinter) Print(details Details) error {
-	_, err := fmt.Fprintf(p.Writer, "%s\n", Table())
-	return err
-}
-
-type SingleLinePrinter struct {
-	BasePrinter
-}
-
-func (p SingleLinePrinter) Print(details Details) error {
-	_, err := fmt.Fprintf(p.Writer, "%s\n", fmt.Sprintf("Version: %s", details.Version))
-	return err
-}
-
-type StringPrinter struct {
-	BasePrinter
-}
-
-func (p StringPrinter) Print(details Details) error {
-	_, err := fmt.Fprintf(p.Writer, "%s\n", String())
-	return err
-}
+var PRINTER_TABLE = TablePrinter{Writer: os.Stdout}
+var PRINTER_STRING = StringPrinter{Writer: os.Stdout}
+var PRINTER_SINGLE_LINE = SingleLinePrinter{Writer: os.Stdout}
 
 /*
 String returns build details as a string with formatting
@@ -142,7 +114,7 @@ func CheckVersion(printer ...Printer) {
 
 	if len(printer) == 0 {
 		printer = append(printer, SingleLinePrinter{
-			BasePrinter: BasePrinter{Writer: os.Stdout},
+			Writer: os.Stdout,
 		})
 	}
 
@@ -151,7 +123,10 @@ func CheckVersion(printer ...Printer) {
 		switch os.Args[i] {
 		case "--version":
 			for _, p := range printer {
-				p.Print(Data())
+				err := p.Print(Data())
+				if err != nil {
+					os.Exit(1)
+				}
 			}
 			os.Exit(0)
 		}
