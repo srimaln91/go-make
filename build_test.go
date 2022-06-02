@@ -1,8 +1,12 @@
 package build
 
 import (
+	"bytes"
 	"fmt"
+	"io/ioutil"
+	"runtime"
 	"testing"
+	"time"
 )
 
 func TestTable(t *testing.T) {
@@ -35,4 +39,70 @@ func TestJSON(t *testing.T) {
 	}
 
 	fmt.Println(string(resultJSON))
+}
+
+func TestSingleLinePrinter(t *testing.T) {
+	d := Details{
+		Version:   "v1.0.0",
+		GoVersion: runtime.Version(),
+		GitCommit: "test got commit",
+		OSArch:    fmt.Sprintf("%s/%s", runtime.GOOS, runtime.GOARCH),
+		Date:      time.Now().String(),
+	}
+
+	writer := bytes.NewBuffer(nil)
+	p := SingleLinePrinter{Writer: writer}
+	p.Print(d)
+
+	b, err := ioutil.ReadAll(writer)
+	if err != nil {
+		t.Error(err)
+	}
+	if b == nil {
+		t.Error("empty output from printer")
+	}
+}
+
+func TestTablePrinter(t *testing.T) {
+	d := Details{
+		Version:   "v1.0.0",
+		GoVersion: runtime.Version(),
+		GitCommit: "test got commit",
+		OSArch:    fmt.Sprintf("%s/%s", runtime.GOOS, runtime.GOARCH),
+		Date:      time.Now().String(),
+	}
+
+	writer := bytes.NewBuffer(nil)
+	p := TablePrinter{Writer: writer}
+	p.Print(d)
+
+	b, err := ioutil.ReadAll(writer)
+	if err != nil {
+		t.Error(err)
+	}
+	if b == nil {
+		t.Error("empty output from printer")
+	}
+}
+
+func TestStringPrinter(t *testing.T) {
+	d := Details{
+		Version:   "v1.0.0",
+		GoVersion: runtime.Version(),
+		GitCommit: "test got commit",
+		OSArch:    fmt.Sprintf("%s/%s", runtime.GOOS, runtime.GOARCH),
+		Date:      time.Now().String(),
+	}
+
+	writer := bytes.NewBuffer(nil)
+	p := StringPrinter{Writer: writer}
+	p.Print(d)
+
+	b, err := ioutil.ReadAll(writer)
+	if err != nil {
+		t.Error(err)
+	}
+	if b == nil {
+		t.Error("empty output from printer")
+	}
 }

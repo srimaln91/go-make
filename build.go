@@ -24,7 +24,17 @@ type Details struct {
 	Date      string `json:"date,omitempty"`
 }
 
+type Printer interface {
+	Print(details Details) error
+}
+
 var version, date, gitCommit, osArch string
+
+var (
+	PRINTER_TABLE       = TablePrinter{Writer: os.Stdout}
+	PRINTER_STRING      = StringPrinter{Writer: os.Stdout}
+	PRINTER_SINGLE_LINE = SingleLinePrinter{Writer: os.Stdout}
+)
 
 /*
 String returns build details as a string with formatting
@@ -102,13 +112,24 @@ func Data() Details {
 }
 
 // CheckVersion checks --version os argument and prints the binary build details in the console
-func CheckVersion() {
+func CheckVersion(printer ...Printer) {
+
+	if len(printer) == 0 {
+		printer = append(printer, SingleLinePrinter{
+			Writer: os.Stdout,
+		})
+	}
 
 	// Check OS arguments
 	for i := 1; i < len(os.Args); i++ {
 		switch os.Args[i] {
 		case "--version":
-			fmt.Fprintf(os.Stdout, "%s\n", Table())
+			for _, p := range printer {
+				err := p.Print(Data())
+				if err != nil {
+					os.Exit(1)
+				}
+			}
 			os.Exit(0)
 		}
 	}
