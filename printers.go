@@ -19,7 +19,7 @@ type SingleLinePrinter struct {
 }
 
 func (p SingleLinePrinter) Print(details Details) error {
-	_, err := fmt.Fprintf(p.Writer, "%s\n", fmt.Sprintf("Version: %s", details.Version))
+	_, err := fmt.Fprintf(p.Writer, "%s\n", fmt.Sprintf("Version: %s , sha: %s", details.Version, details.GitCommit))
 	return err
 }
 
