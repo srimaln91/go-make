@@ -44,7 +44,7 @@ func TestJSON(t *testing.T) {
 func TestSingleLinePrinter(t *testing.T) {
 	d := Details{
 		Version:   "v1.0.0",
-		GoVersion: runtime.Version(),
+		GoRuntime: runtime.Version(),
 		GitCommit: "test got commit",
 		OSArch:    fmt.Sprintf("%s/%s", runtime.GOOS, runtime.GOARCH),
 		Date:      time.Now().String(),
@@ -66,7 +66,7 @@ func TestSingleLinePrinter(t *testing.T) {
 func TestTablePrinter(t *testing.T) {
 	d := Details{
 		Version:   "v1.0.0",
-		GoVersion: runtime.Version(),
+		GoRuntime: runtime.Version(),
 		GitCommit: "test got commit",
 		OSArch:    fmt.Sprintf("%s/%s", runtime.GOOS, runtime.GOARCH),
 		Date:      time.Now().String(),
@@ -88,7 +88,7 @@ func TestTablePrinter(t *testing.T) {
 func TestStringPrinter(t *testing.T) {
 	d := Details{
 		Version:   "v1.0.0",
-		GoVersion: runtime.Version(),
+		GoRuntime: runtime.Version(),
 		GitCommit: "test got commit",
 		OSArch:    fmt.Sprintf("%s/%s", runtime.GOOS, runtime.GOARCH),
 		Date:      time.Now().String(),

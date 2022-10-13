@@ -18,7 +18,7 @@ import (
 // Details represents known data for a given build
 type Details struct {
 	Version   string `json:"version,omitempty"`
-	GoVersion string `json:"go_version,omitempty"`
+	GoRuntime string `json:"go_runtime,omitempty"`
 	GitCommit string `json:"git_commit,omitempty"`
 	OSArch    string `json:"os_arch,omitempty"`
 	Date      string `json:"date,omitempty"`
@@ -42,19 +42,19 @@ suitable for console output.
 Ex:
 Build Details:
   Version: v0.5.0
-  Go Version: go1.12.9
+  Go Runtime: go1.12.9
   Git Commit: bc2e7ce8edc4aa85cc258890e0e4381630cbf5f8
   OS/Arch: linux/amd64
-  Built: 2019-10-05-12:17:29-UTC
+  Built On: 2019-10-05-12:17:29-UTC
 */
 func String() string {
 	return fmt.Sprintf(`
 Build Details:
   Version: %s
-  Go Version: %s
+  Go Runtime: %s
   Git Commit: %s
   OS/Arch: %s
-  Built: %s
+  Built on: %s
 `,
 		version,
 		runtime.Version(),
@@ -104,7 +104,7 @@ func JSON() ([]byte, error) {
 func Data() Details {
 	return Details{
 		Version:   version,
-		GoVersion: runtime.Version(),
+		GoRuntime: runtime.Version(),
 		GitCommit: gitCommit,
 		OSArch:    osArch,
 		Date:      date,
@@ -115,7 +115,7 @@ func Data() Details {
 func CheckVersion(printer ...Printer) {
 
 	if len(printer) == 0 {
-		printer = append(printer, SingleLinePrinter{
+		printer = append(printer, StringPrinter{
 			Writer: os.Stdout,
 		})
 	}
@@ -123,7 +123,7 @@ func CheckVersion(printer ...Printer) {
 	// Check OS arguments
 	for i := 1; i < len(os.Args); i++ {
 		switch os.Args[i] {
-		case "--version":
+		case "--version", "-v":
 			for _, p := range printer {
 				err := p.Print(Data())
 				if err != nil {
